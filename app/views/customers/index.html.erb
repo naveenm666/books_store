@@ -1,0 +1,14 @@
+<h1>Customers</h1>
+
+<ul>
+  <% @customers.each do |customer| %>
+    <li>
+      <%= link_to "#{customer.firstname} #{customer.lastname}", customer %>--
+      <%= link_to "New Order", new_customer_order_path(customer) %>--
+      <%= link_to "Show orders", customer_orders_path(customer) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Customer", new_customer_path %>
+

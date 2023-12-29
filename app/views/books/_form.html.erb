@@ -1,0 +1,57 @@
+<%= form_with model: book do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+      <% book.errors.full_messages_for(:title).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+
+    <div>
+      <%= form.label :author_id, 'author_id' %>
+      <%= form.collection_select :author_id, Author.all, :id, :name, prompt: 'Choose an author' %>
+      <% book.errors.full_messages_for(:author_id).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.label :supplier_id, 'supplier_id' %>
+      <%= form.collection_select :supplier_id, Supplier.all, :id, :name, prompt: 'Choose an supplier' %>
+      <% book.errors.full_messages_for(:supplier_id).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+    <div>
+       <%= form.label :year_published, 'year_published' %>
+       <%= form.select :year_published, options_for_select((Date.current.year - 100)..Date.current.year),prompt: 'Choose an year' %>
+       <% book.errors.full_messages_for(:year_published).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
+
+    <div>
+    <%= form.label :price, 'Price' %>
+    <%= form.number_field :price, step: '0.01', min: 0 %>
+      <% book.errors.full_messages_for(:price).each do |message| %>
+        <div><%= message %></div>
+       <% end %>
+    </div>
+
+
+    <div>
+      <%= form.label :out_of_print, 'out_of_print' %>
+      <%= form.radio_button :out_of_print, true %> <%= label_tag 'out_of_print_true', 'Yes' %>
+      <%= form.radio_button :out_of_print, false %> <%= label_tag 'out_of_print_false', 'No' %>
+      <% book.errors.full_messages_for(:out_of_print).each do |message| %>
+        <div><%= message %></div>
+       <% end %>
+    </div>
+  
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>

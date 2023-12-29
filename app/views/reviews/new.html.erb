@@ -1,0 +1,34 @@
+<%= form_with(model: [@book, @review]) do |form| %>
+    <div>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+      <% @review.errors.full_messages_for(:body).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  
+    <div>
+      <%= form.label :rating %><br>
+      <%= form.number_field :rating %>
+      <% @review.errors.full_messages_for(:rating).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  
+    <div>
+      <%= form.label :customer_id %><br>
+      <%= form.collection_select :customer_id, Customer.all, :id, :firstname, prompt:  true %>
+      <% @review.errors.full_messages_for(:customer_id).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  
+    <%= form.hidden_field :book_id, value: @book.id %>
+  
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+  
+  <%= link_to "Back to Reviews", book_reviews_path(@book) %>
+  

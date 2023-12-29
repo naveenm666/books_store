@@ -1,0 +1,10 @@
+<h1><%= @supplier.name %></h1>
+
+
+<ul>
+  <li><%= link_to "Edit", edit_supplier_path(@supplier) %></li>
+  <li><%= link_to "Destroy", supplier_path(@supplier), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>

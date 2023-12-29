@@ -1,0 +1,18 @@
+<h1>Books</h1>
+ 
+<%= link_to 'Sort by Title (A-Z)', books_path(sort: 'title_asc') %>
+<%= link_to 'Sort by Price (Low to High)', books_path(sort: 'price_low_high') %>
+<%= link_to 'Sort by Price (High to Low)', books_path(sort: 'price_high_low') %>
+
+<ul>
+  <% @books.each do |book| %>
+    <li>
+      <%= link_to book.title, book %>--
+      <%= book.price%>--
+      <%= link_to "New Review", new_book_review_path(book) %>--
+      <%= link_to "Show Reviews", book_reviews_path(book) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Book", new_book_path %>

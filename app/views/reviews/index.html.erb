@@ -1,0 +1,10 @@
+<h2>Reviews for <%= @book.title %></h2>
+
+<ul>
+  <% @reviews.each do |review| %>
+    <li>
+      <%= review.body %> - <%= review.rating %> stars
+    </li>
+  <% end %>
+</ul>
+

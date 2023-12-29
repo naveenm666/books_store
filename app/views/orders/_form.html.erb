@@ -1,0 +1,46 @@
+
+
+<%= form_with(model: [@customer, @order], url: customer_orders_path(@customer), local: true) do |form| %>
+  <div>
+    <%= form.label :book_ids, 'Select Books' %>
+    <%= form.collection_select :book_ids, @books, :id, :title, {}, multiple: true %>
+  </div>
+
+  <div>
+    <%= form.label :date_submitted %>
+    <%= form.date_field :date_submitted %>
+    <% @order.errors.full_messages_for(:date_submitted).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :status %>
+    <%= form.select :status, [:shipped, :being_packed, :complete, :cancelled] %>
+    <% @order.errors.full_messages_for(:status).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :subtotal %>
+    <%= form.number_field :subtotal %>
+    <% @order.errors.full_messages_for(:subtotal).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :shipping %>
+    <%= form.number_field :shipping %>
+    <% @order.errors.full_messages_for(:shipping).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit 'Create Order' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Orders', customer_orders_path(@customer) %>

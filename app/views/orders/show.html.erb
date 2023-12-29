@@ -1,0 +1,17 @@
+
+<h1>Order Details</h1>
+
+<p><strong>Date Submitted:</strong> <%= @order.date_submitted.strftime("%Y-%m-%d %H:%M:%S") %></p>
+<p><strong>Status:</strong> <%= @order.status %></p>
+<p><strong>Subtotal:</strong> <%= @order.subtotal %></p>
+<p><strong>Shipping:</strong> <%= @order.shipping %></p>
+<p>Total Price: <%= number_to_currency(@order.total) %></p>
+
+<h2>Books</h2>
+<ul>
+  <% @order.books.each do |book| %>
+    <li><%= book.title %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Orders', customer_orders_path(@customer) %>

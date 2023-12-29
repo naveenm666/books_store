@@ -1,0 +1,24 @@
+
+<h1>Reviews for <%= @book.title %></h1>
+
+<%= link_to 'Back to Book', book_path(@book) %>
+
+<div>
+  <%= render partial: 'reviews/form', locals: { review: @review } %>
+</div>
+
+<div>
+  <% if @reviews.any? %>
+    <h2>All Reviews:</h2>
+    <ul>
+      <% @reviews.each do |review| %>
+        <li>
+          <strong><%= review.customer.fullname %></strong> - <%= review.rating %> stars<br>
+          <%= review.body %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reviews yet.</p>
+  <% end %>
+</div>

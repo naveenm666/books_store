@@ -1,9 +1,11 @@
-<h1><%= "#{@customer.firstname} #{@customer.lastname}" %></h1>
+<h1>name:<%= "#{current_customer.firstname} #{current_customer.lastname}" %></h1>
+<h2>email:<%= current_customer.email %></h2>
+
 
 
 <ul>
-  <li><%= link_to "Edit", edit_customer_path(@customer) %></li>
-  <li><%= link_to "Destroy", customer_path(@customer), data: {
+  <li><%= link_to "Edit",  edit_customer_path(current_customer) %></li>
+  <li><%= link_to "Destroy",customer_path(current_customer), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %></li>

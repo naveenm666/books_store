@@ -1,14 +1,13 @@
 <h1>Books</h1>
  
-<%= link_to 'Sort by Title (A-Z)', books_path(sort: 'title_asc') %>
-<%= link_to 'Sort by Price (Low to High)', books_path(sort: 'price_low_high') %>
-<%= link_to 'Sort by Price (High to Low)', books_path(sort: 'price_high_low') %>
+<%= link_to 'Sort by Title (A-Z)', author_books_path(current_author, sort: 'title_asc') %>
+<%= link_to 'Sort by Price (Low to High)', author_books_path(current_author, sort: 'price_low_high') %>
+<%= link_to 'Sort by Price (High to Low)', author_books_path(current_author, sort: 'price_high_low') %>
 
 <h2>My Books</h2>
   <ul>
     <% current_author.books.each do |book| %>
-      <li><%= link_to book.title, book %></li>
-      <!-- Display other book information as needed -->
+      <li><%= link_to book.title, author_book_path(current_author, book)%></li>
     <% end %>
   </ul>
 

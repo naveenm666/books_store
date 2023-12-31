@@ -16,12 +16,19 @@
     
     <% if author_signed_in? %>
     <%= button_to(
-      "Log Out",
-      destroy_author_session_path,
-      method: :delete
-    ) %>
-  <% end %>
+       "Log Out",
+       destroy_author_session_path,
+       method: :delete
+     ) %>
+    <% end %>
 
+    <% if customer_signed_in? %>
+    <%= button_to(
+       "Log Out",
+        destroy_customer_session_path,
+        method: :delete
+     ) %>
+    <% end %>
     
 
     <%= yield %>

@@ -10,8 +10,18 @@
 <h2>Books</h2>
 <ul>
   <% @order.books.each do |book| %>
-    <li><%= book.title %></li>
+    <li><%= book.title %>
+    </li>
   <% end %>
 </ul>
 
-<%= link_to 'Back to Orders', customer_orders_path(@customer) %>
+<ul>
+  <li><%= link_to "Destroy", customer_order_path(current_customer, @order), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
+
+
+
+<%= link_to 'Back to Orders', customer_orders_path(current_customer) %>

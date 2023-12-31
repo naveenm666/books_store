@@ -12,10 +12,11 @@ Rails.application.routes.draw do
   end
 resources :suppliers
 resources :customers do
-  resources :orders
-end
-resources :books do
+  resources :orders do
   resources :reviews, only: [:new, :create, :index, :show]
+end
+
+  
 end
 
 

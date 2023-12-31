@@ -1,10 +1,8 @@
-<h1><%= @author.name %></h1>
 
 
-<ul>
-  <li><%= link_to "Edit", edit_author_path(@author) %></li>
-  <li><%= link_to "Destroy", author_path(@author), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></li>
-</ul>
+
+<!-- app/views/authors/show.html.erb -->
+<%= current_author.name %>
+
+<%= link_to 'Create a New Book', new_author_book_path(current_author)%>
+<%= link_to 'View My Books', author_books_path(current_author) %>

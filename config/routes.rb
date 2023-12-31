@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  get 'orders/new'
-  get 'orders/index'
+  devise_for :customers
+  devise_for :authors
+  
   # get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  # root "authors#index"
+ root "home#index"
 
 
-  root "books#index"
-resources :authors
+  resources :authors do
+    resources :books
+  end
 resources :suppliers
 resources :customers do
   resources :orders

@@ -1,66 +1,66 @@
+# app/controllers/books_controller.rb
+
 class BooksController < ApplicationController
-    def index
-        @books = Book.all
+  before_action :authenticate_author!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_author, only: [:new, :create]
+  before_action :set_book, only: [:edit, :update, :destroy]
 
+  def index
+    @books = Book.all
+  end
 
+  def show
+    @book = Book.find(params[:id])
+  end
 
-        if params[:sort] == 'title_asc'
-          @books = @books.order(title: :asc)
-        elsif params[:sort] == 'price_low_high'
-          @books = @books.order(price: :asc)
-        elsif params[:sort] == 'price_high_low'
-          @books = @books.order(price: :desc)
-        else
-          @books = @books.order(created_at: :desc)
-        end
-      
-      
+  def new
+    @book = @author.books.build
+  end
+
+  def create
+    @book = @author.books.build(book_params)
+
+    if @book.save
+      redirect_to author_books_path(current_author), notice: 'Book was successfully created.'
+    else
+      render :new
     end
-    
-      def show
-        @book = Book.find(params[:id])
-      end
-      
-    
-      def new
-        @book = Book.new
-      end
-    
-      def create
-        @book = Book.new(book_params)
-    
-        if @book.save
-          redirect_to @book
-        else
-            puts @book.errors.full_messages.inspect
+  end
 
-          render :new, status: :unprocessable_entity
-        end
-      end
-    
-      def edit
-        @book = Book.find(params[:id])
-      end
-    
-      def update
-        @book = Book.find(params[:id])
-    
-        if @book.update(book_params)
-          redirect_to @book
-        else
-          render :edit, status: :unprocessable_entity
-        end
-      end
-    
-      def destroy
-        @book = Book.find(params[:id])
-        @book.destroy
-    
-        redirect_to root_path, status: :see_other
-      end
-    
-      private
-        def book_params
-          params.require(:book).permit(:title, :author_id, :supplier_id, :year_published, :out_of_print, :price)
-        end
+  def edit
+    # The set_book before_action ensures @book is set
+  end
+
+  def update
+    if @book.update(book_params)
+      redirect_to author_books_path(current_author), notice: 'Book was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @book.destroy
+    redirect_to author_books_path(current_author), notice: 'Book was successfully destroyed.'
+  end
+
+  private
+
+  def set_author
+    @author = current_author
+  end
+
+  def set_book
+    @book = current_author.books.find(params[:id])
+  end
+
+  def book_params
+    params.require(:book).permit(
+      :title,
+      :supplier_id,  
+      :year_published,
+      :out_of_print,
+      :price
+    )
+  end
 end

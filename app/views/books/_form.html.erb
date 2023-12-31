@@ -9,14 +9,6 @@
 
 
     <div>
-      <%= form.label :author_id, 'author_id' %>
-      <%= form.collection_select :author_id, Author.all, :id, :name, prompt: 'Choose an author' %>
-      <% book.errors.full_messages_for(:author_id).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    </div>
-
-    <div>
       <%= form.label :supplier_id, 'supplier_id' %>
       <%= form.collection_select :supplier_id, Supplier.all, :id, :name, prompt: 'Choose an supplier' %>
       <% book.errors.full_messages_for(:supplier_id).each do |message| %>

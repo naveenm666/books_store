@@ -1,10 +1,10 @@
-<h1>Authors</h1>
 
-<ul>
-  <% @authors.each do |author| %>
-    <li>
-      <%= link_to author.name, author %>
-    </li>
+
+  <% if @current_author %>
+    <p>Welcome, <%= @current_author.name %>!</p>
+  <% else %>
+    <p>No author logged in.</p>
   <% end %>
-</ul>
-<%= link_to "New Author", new_author_path %>
+
+  <%= link_to 'Create a New Book', new_author_book_path(current_author)%>
+  <%= link_to 'View My Books', author_books_path(current_author) %>

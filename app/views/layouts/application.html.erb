@@ -11,12 +11,19 @@
   </head>
 
   <body>
-    <h1>
-      <%= link_to "Authors", authors_path %>
-      <%= link_to "Books", books_path %>
-      <%= link_to "Customers", customers_path %>
-      <%= link_to "Suppliers", suppliers_path %>
-    </h1>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    
+    <% if author_signed_in? %>
+    <%= button_to(
+      "Log Out",
+      destroy_author_session_path,
+      method: :delete
+    ) %>
+  <% end %>
+
+    
+
     <%= yield %>
   </body>
 </html>

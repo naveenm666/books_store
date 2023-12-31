@@ -1,49 +1,66 @@
-<%= form_with model: book do |form| %>
-    <div>
-      <%= form.label :title %><br>
-      <%= form.text_field :title %>
-      <% book.errors.full_messages_for(:title).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    </div>
+<!-- app/views/books/_form.html.erb -->
 
+<%= form_with(model: [@author, @book], local: true) do |form| %>
+  <% if @book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
 
-    <div>
-      <%= form.label :supplier_id, 'supplier_id' %>
-      <%= form.collection_select :supplier_id, Supplier.all, :id, :name, prompt: 'Choose an supplier' %>
-      <% book.errors.full_messages_for(:supplier_id).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    </div>
-
-    <div>
-       <%= form.label :year_published, 'year_published' %>
-       <%= form.select :year_published, options_for_select((Date.current.year - 100)..Date.current.year),prompt: 'Choose an year' %>
-       <% book.errors.full_messages_for(:year_published).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    </div>
-
-
-    <div>
-    <%= form.label :price, 'Price' %>
-    <%= form.number_field :price, step: '0.01', min: 0 %>
-      <% book.errors.full_messages_for(:price).each do |message| %>
-        <div><%= message %></div>
-       <% end %>
-    </div>
-
-
-    <div>
-      <%= form.label :out_of_print, 'out_of_print' %>
-      <%= form.radio_button :out_of_print, true %> <%= label_tag 'out_of_print_true', 'Yes' %>
-      <%= form.radio_button :out_of_print, false %> <%= label_tag 'out_of_print_false', 'No' %>
-      <% book.errors.full_messages_for(:out_of_print).each do |message| %>
-        <div><%= message %></div>
-       <% end %>
-    </div>
-  
-    <div>
-      <%= form.submit %>
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+    <% @book.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :supplier_id %>
+    <%= form.collection_select :supplier_id, Supplier.all, :id, :name, { prompt: "Select a supplier" } %>
+    <% @book.errors.full_messages_for(:supplier_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="field">
+   <%= form.label :year_published do %>
+     Year Published
+   <% end %>
+   <%= form.date_select :year_published, start_year: Date.today.year, end_year: 1900, include_blank: false %>
+   <% @book.errors.full_messages_for(:year_published).each do |message| %>
+    <div><%= message %></div>
+   <% end %>
+  </div>
+
+
+  <div class="field">
+   <%= form.label :out_of_print do %>
+     Out of Print
+   <% end %>
+   <%= form.check_box :out_of_print %>
+   <% @book.errors.full_messages_for(:out_of_print).each do |message| %>
+     <div><%= message %></div>
+   <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+    <% @book.errors.full_messages_for(:price).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <!-- Add other book attributes as needed -->
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

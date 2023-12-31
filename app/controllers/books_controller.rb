@@ -57,7 +57,8 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(
       :title,
-      :supplier_id,  
+      :author_id,    # Assuming you have an author_id foreign key in the books table
+      :supplier_id,  # Assuming you have a supplier_id foreign key in the books table
       :year_published,
       :out_of_print,
       :price

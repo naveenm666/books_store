@@ -1,5 +1,10 @@
 <% if current_customer.present? %>
-  <h1>Welcome, <%= link_to "#{current_customer.firstname} #{current_customer.lastname}", customer_path(current_customer) %></h1>
+  <h1>Welcome,   
+  <% if current_customer.avatar.attachment.present? %>
+    <%= image_tag current_customer.avatar, class: 'avatar-image' %>
+  <% end %>
+
+  <%= link_to "#{current_customer.firstname} #{current_customer.lastname}", customer_path(current_customer) %></h1>
   <%= link_to "New Order", new_customer_order_path(current_customer) %> --
   <%= link_to "Show Orders", customer_orders_path(current_customer) %> --
 <% else %>

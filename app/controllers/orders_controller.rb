@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @customer = Customer.find(params[:customer_id]) 
     @order = @customer.orders.build(order_params)
     @books = Book.all
 
@@ -26,7 +27,8 @@ class OrdersController < ApplicationController
     @order.total = total_price_of_selected_books * @order.subtotal
 
     if @order.save
-      redirect_to customer_orders_path(@customer), notice: 'Order was successfully created.'
+      OrderMailer.with(customer: @customer).order_confirmation.deliver_later
+      redirect_to customer_orders_path(current_customer), notice: 'Order was successfully created.'
     else
       render :new
     end
@@ -45,7 +47,7 @@ class OrdersController < ApplicationController
     @order.total = total_price_of_selected_books * @order.subtotal
 
     if @order.update(order_params)
-      redirect_to customer_orders_path(@customer), notice: 'Order was successfully updated.'
+      redirect_to customer_orders_path(current_customer), notice: 'Order was successfully updated.'
     else
       render :edit
     end
@@ -53,7 +55,7 @@ class OrdersController < ApplicationController
 
   def destroy
     @order.destroy
-    redirect_to customer_orders_path(@customer), notice: 'Order was successfully destroyed.'
+    redirect_to customer_orders_path(current_customer), notice: 'Order was successfully destroyed.'
   end
 
   private

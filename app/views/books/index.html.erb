@@ -7,7 +7,12 @@
 <h2>My Books</h2>
   <ul>
     <% current_author.books.each do |book| %>
-      <li><%= link_to book.title, author_book_path(current_author, book)%></li>
+      <li>
+        <% if book.avatar.attachment.present? %>
+          <%= image_tag book.avatar, class: 'avatar-image' %>
+        <% end %>
+        <%= link_to book.title, author_book_path(current_author, book)%>
+      </li>
     <% end %>
   </ul>
 

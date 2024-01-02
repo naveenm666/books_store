@@ -3,6 +3,8 @@ class Book < ApplicationRecord
     belongs_to :author
     has_many :reviews
     has_and_belongs_to_many :orders, join_table: 'books_orders'
+    has_one_attached :avatar
+
   
     validates :title, presence: true
     validates :year_published, presence: true, inclusion: { in: (Date.current.year - 100)..Date.current.year }

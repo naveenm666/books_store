@@ -5,6 +5,8 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
     has_many :orders
     has_many :reviews
+    has_one_attached :avatar
+
 
     validates :firstname, presence: true
     validates :lastname, presence: true

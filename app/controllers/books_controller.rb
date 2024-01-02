@@ -1,5 +1,3 @@
-# app/controllers/books_controller.rb
-
 class BooksController < ApplicationController
   before_action :authenticate_author!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_author, only: [:new, :create]
@@ -23,7 +21,7 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to author_books_path(current_author), notice: 'Book was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -57,11 +55,11 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(
       :title,
-      :author_id,    # Assuming you have an author_id foreign key in the books table
-      :supplier_id,  # Assuming you have a supplier_id foreign key in the books table
+      :supplier_id,  
       :year_published,
       :out_of_print,
-      :price
+      :price,
+      :avatar
     )
   end
 end
